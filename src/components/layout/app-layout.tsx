@@ -54,6 +54,9 @@ export function AppLayout({
     sessionStorage.removeItem('auth_token');
     sessionStorage.removeItem('user_email');
     
+    // Clear onboarding state para aparecer novamente no próximo login
+    sessionStorage.removeItem('onboarding-completed');
+    
     toast.success('Sessão encerrada com sucesso!', {
       position: 'top-center',
       duration: 3000,
@@ -139,6 +142,7 @@ export function AppLayout({
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <Button 
+                  data-tour="user-menu"
                   variant="ghost" 
                   size="icon" 
                   className="h-10 w-10 rounded-full focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-neutral-900 dark:focus-visible:outline-neutral-50"

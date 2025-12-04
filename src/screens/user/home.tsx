@@ -405,7 +405,7 @@ export function UserHome() {
           Atalhos Rápidos
         </h2>
 
-        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        <div data-tour="modules" className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {quickActions.map((action) => {
             const Icon = action.icon;
             return (

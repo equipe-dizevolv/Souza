@@ -99,6 +99,7 @@ export function AppSidebar({ currentPersona }: AppSidebarProps) {
   return (
     <TooltipProvider delayDuration={0}>
       <div
+        data-tour="sidebar"
         className={cn(
           'flex h-full flex-col bg-black transition-all duration-300 ease-in-out',
           isExpanded ? 'w-[260px]' : 'w-[72px]'

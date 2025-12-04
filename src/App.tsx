@@ -3,6 +3,8 @@ import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { ThemeProvider } from './components/theme-provider';
 import { AppLayout } from './components/layout/app-layout';
 import { Toaster } from './components/ui/sonner';
+import { OnboardingTour } from './components/onboarding/OnboardingTour';
+import { useOnboarding } from './hooks/useOnboarding';
 
 // Auth Screens
 import { Login, SignUp, ForgotPassword, ResetPassword } from './screens/auth';
@@ -45,8 +47,21 @@ import { AccountsPanel } from './screens/consultant/accounts-panel';
 
 export type Persona = 'Ana Admin' | 'Paulo Padrão' | 'Clara Consultora';
 
+const getPersonaRole = (persona: Persona): 'admin' | 'user' | 'consultant' => {
+  switch (persona) {
+    case 'Ana Admin':
+      return 'admin';
+    case 'Clara Consultora':
+      return 'consultant';
+    default:
+      return 'user';
+  }
+};
+
 export default function App() {
   const [currentPersona, setCurrentPersona] = useState<Persona>('Paulo Padrão');
+  const userRole = getPersonaRole(currentPersona);
+  const { shouldShow, complete } = useOnboarding(userRole);
 
   return (
     <ThemeProvider defaultTheme="dark" storageKey="app-theme">
@@ -126,6 +141,7 @@ export default function App() {
           />
         </Routes>
         <Toaster position="top-center" duration={4000} />
+        {shouldShow && <OnboardingTour userRole={userRole} onComplete={complete} />}
       </BrowserRouter>
     </ThemeProvider>
   );

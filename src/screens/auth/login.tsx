@@ -40,6 +40,9 @@ export function Login() {
         duration: 3000,
       });
       
+      // Clear onboarding state para aparecer novamente
+      sessionStorage.removeItem('onboarding-completed');
+      
       // Store auth token
       if (rememberMe) {
         localStorage.setItem('auth_token', 'mock_token_123');
@@ -48,6 +51,9 @@ export function Login() {
         sessionStorage.setItem('auth_token', 'mock_token_123');
         sessionStorage.setItem('user_email', formData.email);
       }
+
+      // Dispara evento customizado para forçar re-verificação do onboarding
+      window.dispatchEvent(new Event('onboarding-check'));
 
       setTimeout(() => {
         navigate('/');
